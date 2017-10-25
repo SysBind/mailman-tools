@@ -12,7 +12,7 @@ client = Client(CORE_URI, CORE_USER, CORE_PASS)
 ml_fqdn = sys.argv[1]
 ml = client.get_list(ml_fqdn)
 
-current_members = [m.address for m in ml.members]
+current_members = [str(m.address) for m in ml.members]
 new_member_list = []
 
 for l in sys.stdin:
