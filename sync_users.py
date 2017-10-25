@@ -15,7 +15,8 @@ ml = client.get_list(ml_fqdn)
 current_members = [m.address for m in ml.members]
 new_member_list = []
 
-for member_email in sys.stdin:
+for l in sys.stdin:
+    member_email = l.strip()
     print("Received {}".format(member_email))
     new_member_list.append(member_email)
 
