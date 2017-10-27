@@ -12,7 +12,7 @@ if __name__ == '__main__':
     CORE_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
     CORE_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 
-    parser.add_argument('list_fqdn', dest='list_fqdn')
+    parser.add_argument('list_fqdn')
     parser.add_argument('--members-file', dest='list', default=None)
     parser.add_argument('--core-uri', dest='core_uri',
                         default=CORE_URI)
