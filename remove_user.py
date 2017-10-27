@@ -36,8 +36,6 @@ if __name__ == '__main__':
             member_file = sys.stdin
         else:
             member_file = open(args.list, 'r')
-    else:
-        member_file = sys.stdin
 
     for m in member_file:
         member_list.append(m.strip())
