@@ -37,8 +37,10 @@ if __name__ == '__main__':
         else:
             member_file = open(args.list, 'r')
 
-    for m in member_file:
-        member_list.append(m.strip())
+        for m in member_file:
+            member_list.append(m.strip())
+        if args.list and args.list != '-':
+            member_file.close()
 
     for member_email in member_list:
         ml = client.get_list(ml_fqdn)
