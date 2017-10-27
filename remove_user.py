@@ -44,5 +44,10 @@ if __name__ == '__main__':
 
     for member_email in member_list:
         ml = client.get_list(ml_fqdn)
-        ml.unsubscribe(member_email)
+        try:
+            ml.unsubscribe(member_email)
+            print("{} unsubscribed".format(member_email))
+        except ValueError:
+            print("WARNING: {} is already unsubscribed".format(member_email))
+
 
