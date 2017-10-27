@@ -2,31 +2,56 @@
 from mailmanclient import Client
 import os
 import sys
+import argparse
 
-CORE_URI = os.environ.get('MAILMAN_CORE_URI', 'http://mailman-core:8001/3.1')
-CORE_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
-CORE_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Sync member list")
 
-client = Client(CORE_URI, CORE_USER, CORE_PASS)
+    CORE_URI = os.environ.get('MAILMAN_CORE_URI',
+                              'http://mailman-core:8001/3.1')
+    CORE_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
+    CORE_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 
-ml_fqdn = sys.argv[1]
-ml = client.get_list(ml_fqdn)
+    parser.add_argument('list_fqdn', dest='list_fqdn')
+    parser.add_argument('--members-file', dest='list', default=None)
+    parser.add_argument('--core-uri', dest='core_uri',
+                        default=CORE_URI)
+    parser.add_argument('--rest-user', dest='core_user',
+                        default=CORE_USER)
+    parser.add_argument('--rest-password', dest='core_password',
+                        default=CORE_PASS)
+    args = parser.parse_args()
 
-current_members = [str(m.address) for m in ml.members]
-new_member_list = []
+    client = Client(args.core_uri, args.core_user, args.core_password)
 
-for l in sys.stdin:
-    member_email = l.strip()
-    print("Received {}".format(member_email))
-    new_member_list.append(member_email)
+    ml_fqdn = args.list_fqdn
 
-for member_email in current_members:
-    if member_email not in new_member_list:
-        print("Intend to unsubscribe {}".format(member_email))
-        ml.unsubscribe(member_email)
+    ml = client.get_list(ml_fqdn)
 
-for member_email in new_member_list:
-    if member_email not in current_members:
-        print("Intend to subscribe {}".format(member_email))
-        ml.subscribe(member_email, pre_verified=True, pre_confirmed=True, 
-                     pre_approved=True)
+    current_members = [str(m.address) for m in ml.members]
+    new_member_list = []
+    if args.list:
+        if args.list == '-':
+            list_file = sys.stdin
+        else:
+            list_file = open(args.list, 'r')
+    else:
+        list_file = sys.stdin
+
+    for l in list_file:
+        member_email = l.strip()
+        print("Received {}".format(member_email))
+        new_member_list.append(member_email)
+    if args.list and args.list != '-':
+        list_file.close()
+
+    for member_email in current_members:
+        if member_email not in new_member_list:
+            print("Intend to unsubscribe {}".format(member_email))
+            ml.unsubscribe(member_email)
+
+    for member_email in new_member_list:
+        if member_email not in current_members:
+            print("Intend to subscribe {}".format(member_email))
+            ml.subscribe(member_email, pre_verified=True, pre_confirmed=True, 
+                         pre_approved=True)
