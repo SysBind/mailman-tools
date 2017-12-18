@@ -47,11 +47,17 @@ if __name__ == '__main__':
 
     for member_email in current_members:
         if member_email not in new_member_list:
-            print("Intend to unsubscribe {}".format(member_email))
-            ml.unsubscribe(member_email)
+            print("Intend to unsubscribe '{0}'".format(member_email))
+            try:
+                ml.unsubscribe(member_email)
+            except:
+                print "Can't unsubscribe '{0}'".format(member_email)
 
     for member_email in new_member_list:
         if member_email not in current_members:
-            print("Intend to subscribe {}".format(member_email))
-            ml.subscribe(member_email, pre_verified=True, pre_confirmed=True, 
-                         pre_approved=True)
+            print("Intend to subscribe '{0}'".format(member_email))
+            try:
+                ml.subscribe(member_email, pre_verified=True, pre_confirmed=True, 
+                             pre_approved=True)
+            except:
+                print "Can't subscribe '{0}'".format(member_email)
