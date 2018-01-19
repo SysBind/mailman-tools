@@ -19,7 +19,8 @@ def set_value(ml, setting, value):
 
 
 def update_settings(ml, updated_settings):
-    ml.settings.update(updated_settings)
+    for setting in updated_settings:
+        ml.settings[setting] = updated_settings[setting]
     ml.save()
 
 
