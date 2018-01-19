@@ -10,7 +10,7 @@ except ImportError:
 
 
 def dump(ml):
-    print json.dumps(dict(ml.settings))
+    print json.dumps(dict(ml.settings), indent=2)
 
 
 def set_value(ml, setting, value):
