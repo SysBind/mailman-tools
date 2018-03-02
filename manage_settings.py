@@ -26,7 +26,7 @@ def update_settings(ml, updated_settings):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Sync member list")
+    parser = argparse.ArgumentParser(description="Manipulate mailing list settings")
 
     CORE_URI = os.environ.get('MAILMAN_CORE_URI',
                               'http://mailman-core:8001/3.1')
@@ -36,7 +36,8 @@ if __name__ == '__main__':
     parser.add_argument('list_fqdn')
     action_group = parser.add_mutually_exclusive_group()
     action_group.add_argument('--dump', action='store_true', default=False)
-    action_group.add_argument('--set', help='set single setting in a form: <setting_name>=<setting_value>')
+    action_group.add_argument(
+        '--set', help='set single setting in a form: <setting_name>=<setting_value>')
     action_group.add_argument('--update', help='update settings with contents of the file provided')
 
     parser.add_argument('--core-uri', dest='core_uri',
