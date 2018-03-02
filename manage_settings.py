@@ -20,7 +20,7 @@ def set_value(ml, setting, value):
 
 def update_settings(ml, updated_settings):
     print json.dumps(updated_settings, indent=2)
-    for setting in updated_settings:
+    for setting in updated_settings.keys():
         ml.settings[setting] = updated_settings[setting]
     ml.save()
 
