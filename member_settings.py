@@ -50,6 +50,6 @@ if __name__ == '__main__':
     ml = client.get_list(ml_fqdn)
     for member_email in member_list:
         member = ml.get_member(member_email)
-        results[member_email] = member.settings
+        results[member_email] = dict(member.preferences)
 
     print json.dumps(results, indent=2)
