@@ -16,6 +16,10 @@ if __name__ == '__main__':
     CORE_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
     CORE_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 
+    ## parser.add_argument('--members', action='store_true', default=False)
+    ## parser.add_argument('--owners', action='store_true', default=False)
+    ## parser.add_argument('--nonmembers', action='store_true', default=False)
+    ## parser.add_argument('--moderators', action='store_true', default=False)
     parser.add_argument('--list-fqdn', dest='list_fqdn', action='append',
                         default=None)
     parser.add_argument('--core-uri', dest='core_uri',
@@ -39,7 +43,19 @@ if __name__ == '__main__':
                 # skip along
                 continue
         messages_held = len(ml.held)
-        members = len(ml.members)
+        members = ml.rest_data['member_count']
+        try:
+            moderators = len(ml.moderators)
+        except:
+            moderators = 0
+        try:
+            owners = len(ml.owners)
+        except:
+            owners = 0
+        try:
+            nonmembers = len(ml.nonmembers)
+        except:
+            nonmembers = 0
         subscription_requests = len(ml.requests)
         last_post = ml.settings['last_post_at']
         last_digest = ml.settings['digest_last_sent_at']
