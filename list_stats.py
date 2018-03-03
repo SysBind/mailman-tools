@@ -32,15 +32,15 @@ if __name__ == '__main__':
     results = {}
     for ml in client.get_lists():
         list_name = ml.settings['list_name']
+        list_fqdn_name = ml.settings['fqdn_listname']
         if args.list_fqdn:
-            if not (list_name in args.list_fqdn):
+            if not (list_fqdn_name in args.list_fqdn):
                 # if list name doesn't match required
                 # skip along
                 continue
         messages_held = len(ml.held)
         members = len(ml.members)
         subscription_requests = len(ml.requests)
-        list_fqdn_name = ml.settings['fqdn_listname']
         last_post = ml.settings['last_post_at']
         last_digest = ml.settings['digest_last_sent_at']
 
