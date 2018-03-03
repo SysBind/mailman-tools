@@ -1,7 +1,8 @@
 #!/usr/local/bin python
 from mailmanclient import Client
 import os
-import sys
+# import sys
+import urllib2
 import argparse
 try:
     import json
@@ -16,10 +17,10 @@ if __name__ == '__main__':
     CORE_USER = os.environ.get('MAILMAN_REST_USER', 'restadmin')
     CORE_PASS = os.environ.get('MAILMAN_REST_PASSWORD', 'restpass')
 
-    ## parser.add_argument('--members', action='store_true', default=False)
-    ## parser.add_argument('--owners', action='store_true', default=False)
-    ## parser.add_argument('--nonmembers', action='store_true', default=False)
-    ## parser.add_argument('--moderators', action='store_true', default=False)
+    # parser.add_argument('--members', action='store_true', default=False)
+    # parser.add_argument('--owners', action='store_true', default=False)
+    # parser.add_argument('--nonmembers', action='store_true', default=False)
+    # parser.add_argument('--moderators', action='store_true', default=False)
     parser.add_argument('--list-fqdn', dest='list_fqdn', action='append',
                         default=None)
     parser.add_argument('--core-uri', dest='core_uri',
@@ -42,21 +43,30 @@ if __name__ == '__main__':
                 # if list name doesn't match required
                 # skip along
                 continue
-        messages_held = len(ml.held)
-        members = ml.rest_data['member_count']
+        try:
+            messages_held = len(ml.held)
+        except:
+            messages_held = -1
+        try:
+            members = ml.rest_data['member_count']
+        except:
+            members = -1
         try:
             moderators = len(ml.moderators)
         except:
-            moderators = 0
+            moderators = -1
         try:
             owners = len(ml.owners)
         except:
-            owners = 0
+            owners = -1
         try:
             nonmembers = len(ml.nonmembers)
         except:
-            nonmembers = 0
-        subscription_requests = len(ml.requests)
+            nonmembers = -1
+        try:
+            subscription_requests = len(ml.requests)
+        except:
+            subscription_requests = -1
         last_post = ml.settings['last_post_at']
         last_digest = ml.settings['digest_last_sent_at']
 
