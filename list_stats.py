@@ -63,6 +63,9 @@ if __name__ == '__main__':
         results[list_name] = {
             'list_fqdn_name': list_fqdn_name,
             'members': members,
+            'owners': owners,
+            'moderators': moderators,
+            'nonmembers': nonmembers,
             'messages_held': messages_held,
             'subscription_requests': subscription_requests,
             'last_post': last_post,
