@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     results = {}
     for ml in client.get_lists():
-        list_name = ml.settings['fqdn_listname']
+        list_name = ml.settings['list_name']
         if args.list_fqdn:
             if not (list_name in args.list_fqdn):
                 # if list name doesn't match required
@@ -40,11 +40,12 @@ if __name__ == '__main__':
         messages_held = len(ml.held)
         members = len(ml.members)
         subscription_requests = len(ml.requests)
-        list_name = ml.settings['fqdn_listname']
+        list_fqdn_name = ml.settings['fqdn_listname']
         last_post = ml.settings['last_post_at']
         last_digest = ml.settings['digest_last_sent_at']
 
         results[list_name] = {
+            'list_fqdn_name': list_fqdn_name,
             'members': members,
             'messages_held': messages_held,
             'subscription_requests': subscription_requests,
