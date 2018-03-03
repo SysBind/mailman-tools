@@ -21,5 +21,5 @@ data = json.load(sys.stdin)
 
 # echo "1 Mailu_queue_len queue=$queued;300;500 WARNING - Can't fetch queue length"
 for list_name in data.keys():
-    print("0 Mailman_{list_name}_stats members={members}|owners={owners}|messages_held{messages_held}|nonmembers={nonmembers}|subscription_requests={subscription_requests}|moderators={moderators}\n".format(
+    print("0 Mailman_{list_name}_stats members={members}|owners={owners}|messages_held={messages_held}|nonmembers={nonmembers}|subscription_requests={subscription_requests}|moderators={moderators} OK - We're ok".format(
         list_name=list_name, **data[list_name]))
