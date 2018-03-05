@@ -2,7 +2,7 @@
 from mailmanclient import Client
 import os
 # import sys
-import urllib2
+# import urllib2
 import argparse
 try:
     import json
