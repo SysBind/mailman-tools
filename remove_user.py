@@ -1,4 +1,4 @@
-#!/usr/local/bin python
+#!/bin/env python
 from mailmanclient import Client
 import os
 import sys
@@ -49,5 +49,3 @@ if __name__ == '__main__':
             print("{} unsubscribed".format(member_email))
         except ValueError:
             print("WARNING: {} is already unsubscribed".format(member_email))
-
-

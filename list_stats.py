@@ -1,4 +1,4 @@
-#!/usr/local/bin python
+#!/bin/env python
 from mailmanclient import Client
 import os
 # import sys

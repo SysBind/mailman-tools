@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/bin/env python
 from mailmanclient import Client
 import os
 import sys
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         if member_email not in current_members:
             print("Intend to subscribe '{0}'".format(member_email))
             try:
-                ml.subscribe(member_email, pre_verified=True, pre_confirmed=True, 
+                ml.subscribe(member_email, pre_verified=True, pre_confirmed=True,
                              pre_approved=True)
             except:
                 print "Can't subscribe '{0}'".format(member_email)
