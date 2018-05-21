@@ -30,6 +30,7 @@ if __name__ == '__main__':
 
     current_members = [str(m.address) for m in ml.members]
     new_member_list = []
+    new_member_names = {}
     if args.list:
         if args.list == '-':
             list_file = sys.stdin
@@ -39,9 +40,11 @@ if __name__ == '__main__':
         list_file = sys.stdin
 
     for l in list_file:
-        member_email = l.strip()
-        print("Received {}".format(member_email))
+        member_email = l.split('<')[1].split('>')[0]
+        member_name =  l.split('<')[0]
+        print("Received	{}".format(member_email))
         new_member_list.append(member_email)
+        new_member_names[member_email] = member_name
     if args.list and args.list != '-':
         list_file.close()
 
@@ -55,9 +58,18 @@ if __name__ == '__main__':
 
     for member_email in new_member_list:
         if member_email not in current_members:
-            print("Intend to subscribe '{0}'".format(member_email))
             try:
+                print("Try to get user by mail {0}".format(member_email))
+                try:
+                    user = client.get_user(member_email)
+                except:
+                    print("Got None for {0}".format(member_email))
+                    member_name = new_member_names[member_email]
+                    user = client.create_user(email=member_email, display_name=member_name, password=None)
+		
+                print("Intend to subscribe '{0}'".format(member_email))
                 ml.subscribe(member_email, pre_verified=True, pre_confirmed=True,
                              pre_approved=True)
             except:
                 print("Can't subscribe '{0}'".format(member_email))
+                raise	
