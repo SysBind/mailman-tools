@@ -68,7 +68,7 @@ if __name__ == '__main__':
                     user = client.create_user(email=member_email, display_name=member_name, password=None)
 		
                 print("Intend to subscribe '{0}'".format(member_email))
-                ml.subscribe(member_email, pre_verified=True, pre_confirmed=True,
+                ml.subscribe(member_email, display_name=member_name, pre_verified=True, pre_confirmed=True,
                              pre_approved=True)
             except:
                 print("Can't subscribe '{0}'".format(member_email))
