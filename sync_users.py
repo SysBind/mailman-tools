@@ -26,6 +26,7 @@ if __name__ == '__main__':
 
     ml_fqdn = args.list_fqdn
 
+    print "calling client.get_list with ml_fqdn = " +  ml_fqdn)
     ml = client.get_list(ml_fqdn)
 
     current_members = [str(m.address) for m in ml.members]
