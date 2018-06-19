@@ -59,16 +59,14 @@ if __name__ == '__main__':
 
     for member_email in new_member_list:
         if member_email not in current_members:
-            try:
-                print("Try to get user by mail {0}".format(member_email))
+            try: 
                 try:
                     user = client.get_user(member_email)
                 except:
                     print("Got None for {0}".format(member_email))
                     member_name = new_member_names[member_email]
-                    user = client.create_user(email=member_email, display_name=member_name, password=None)
-		
-                print("Intend to subscribe '{0}'".format(member_email))
+                    user = client.create_user(email=member_email, display_name=member_name, password=None)		
+
                 ml.subscribe(member_email, display_name=member_name, pre_verified=True, pre_confirmed=True,
                              pre_approved=True)
             except:
