@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     ml_fqdn = args.list_fqdn
 
-    print("calling client.get_list with ml_fqdn = " +  ml_fqdn)
+#    print("calling client.get_list with ml_fqdn = " +  ml_fqdn)
     ml = client.get_list(ml_fqdn)
 
     current_members = [str(m.address) for m in ml.members]
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     for l in list_file:
         member_email = l.split('<')[1].split('>')[0]
         member_name =  l.split('<')[0]
-        print("Received	{}".format(member_email))
+#        print("Received	{}".format(member_email))
         new_member_list.append(member_email)
         new_member_names[member_email] = member_name
     if args.list and args.list != '-':
@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     for member_email in current_members:
         if member_email not in new_member_list:
-            print("Intend to unsubscribe '{0}'".format(member_email))
+#            print("Intend to unsubscribe '{0}'".format(member_email))
             try:
                 ml.unsubscribe(member_email)
             except:
