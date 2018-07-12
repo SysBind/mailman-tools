@@ -64,8 +64,8 @@ if __name__ == '__main__':
                     member_name = new_member_names[member_email]
                     user = client.create_user(email=member_email, display_name=member_name, password=None)		
 
-                ml.subscribe(member_email, display_name=member_name, pre_verified=True, pre_confirmed=True,
-                             pre_approved=True)
+                ml.subscribe(member_email, display_name=member_name, pre_verified=True, pre_confirmed=True, pre_approved=True)
+                current_members.append(member_email)
             except:
                 print("Can't subscribe '{0}'".format(member_email))
                 raise	
