@@ -60,7 +60,6 @@ if __name__ == '__main__':
                 try:
                     user = client.get_user(member_email)
                 except:
-                    print("Got None for {0}".format(member_email))
                     member_name = new_member_names[member_email]
                     user = client.create_user(email=member_email, display_name=member_name, password=None)		
 
