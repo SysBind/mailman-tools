@@ -67,4 +67,3 @@ if __name__ == '__main__':
                 current_members.append(member_email)
             except:
                 print("Can't subscribe '{0}'".format(member_email))
-                raise	
