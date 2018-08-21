@@ -51,8 +51,9 @@ if __name__ == '__main__':
         if member_email not in new_member_list:
             try:
                 ml.unsubscribe(member_email)
+                print("Removed %s" % (member_email))
             except:
-                print("Can't unsubscribe '{0}'".format(member_email))
+                print("Exception %s" % (member_email))
 
     for member_email in new_member_list:
         if member_email not in current_members:
@@ -65,5 +66,6 @@ if __name__ == '__main__':
 
                 ml.subscribe(member_email, display_name=member_name, pre_verified=True, pre_confirmed=True, pre_approved=True)
                 current_members.append(member_email)
+                print("Added %s" % (member_email))
             except:
-                print("Can't subscribe '{0}'".format(member_email))
+                print("Invalid %s" % (member_email))
