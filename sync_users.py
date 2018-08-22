@@ -3,6 +3,8 @@ from mailmanclient import Client
 import os
 import sys
 import argparse
+import time
+import datetime
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Sync member list")
@@ -51,9 +53,11 @@ if __name__ == '__main__':
         if member_email not in new_member_list:
             try:
                 ml.unsubscribe(member_email)
-                print("Removed %s" % (member_email))
+                st = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+                print("["+st+"] Removed %s" % (member_email))
             except:
-                print("Exception %s" % (member_email))
+                st = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+                print("["+st+"] Exception %s" % (member_email))
 
     for member_email in new_member_list:
         if member_email not in current_members:
@@ -66,6 +70,8 @@ if __name__ == '__main__':
 
                 ml.subscribe(member_email, display_name=member_name, pre_verified=True, pre_confirmed=True, pre_approved=True)
                 current_members.append(member_email)
-                print("Added %s" % (member_email))
+                st = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+                print("["+st+"] Added %s" % (member_email))
             except:
-                print("Invalid %s" % (member_email))
+                st = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+                print("["+st+"] Invalid %s" % (member_email))
